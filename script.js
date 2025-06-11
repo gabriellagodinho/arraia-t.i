@@ -1,13 +1,8 @@
 const botao = document.getElementById('botaoFesta');
 const musica = document.getElementById('musicaJunina');
-let festaRodando = false;
 
 botao.addEventListener('click', () => {
-    if (festaRodando) return; // Evita múltiplos cliques
-    festaRodando = true;
-    botao.disabled = true;
-
-    // Mostrar popup informando data e local
+    // Mostrar popup
     Swal.fire({
         title: '🎊 Vai Ter Arraiá! 🎊',
         html: `
@@ -22,33 +17,30 @@ botao.addEventListener('click', () => {
         confirmButtonColor: '#d33'
     });
 
-    // Inicia música do arraiá
+    // Reinicia e toca a música
     musica.currentTime = 0;
     musica.play();
 
-    // Lança confetes por 5 segundos
-    const duracao = 5000;
+    // Confetes por 1 segundo (leve e sem travar)
+    const duracao = 1000;
     const fim = Date.now() + duracao;
 
-    (function lancarConfetes() {
+    (function dispararConfetes() {
         confetti({
-            particleCount: 6,
+            particleCount: 10,
             angle: 60,
-            spread: 55,
-            origin: { x: 0 }
+            spread: 70,
+            origin: { x: Math.random() * 0.5 }
         });
         confetti({
-            particleCount: 6,
+            particleCount: 10,
             angle: 120,
-            spread: 55,
-            origin: { x: 1 }
+            spread: 70,
+            origin: { x: 1 - Math.random() * 0.5 }
         });
 
         if (Date.now() < fim) {
-            requestAnimationFrame(lancarConfetes);
-        } else {
-            festaRodando = false;
-            botao.disabled = false;
+            requestAnimationFrame(dispararConfetes);
         }
     })();
 });
