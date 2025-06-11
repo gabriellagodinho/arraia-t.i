@@ -35,10 +35,41 @@ h1 {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     transition: background-color 0.3s;
+    position: relative; /* necessário para os pseudo-elementos */
+    overflow: visible;
 }
 
 #botaoFesta:hover {
     background-color: #a52a2a;
+}
+
+/* Bandeirinhas penduradas */
+#botaoFesta::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 40px;
+    background-image: url('bandeirinhas-png.png'); /* coloque aqui o caminho da sua imagem */
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Corda pendurando as bandeirinhas */
+#botaoFesta::after {
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 10px;
+    right: 10px;
+    height: 3px;
+    background: linear-gradient(to right, #8b4513 0%, #deb887 100%);
+    border-radius: 1.5px;
+    z-index: 5;
 }
 
 .decorativos {
@@ -83,3 +114,4 @@ h1 {
         width: 80vw;
     }
 }
+
